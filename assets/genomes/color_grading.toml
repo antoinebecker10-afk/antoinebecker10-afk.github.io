@@ -1,0 +1,68 @@
+# Color grading par mode de jeu — hot-reload (mtime 1Hz, Shift+F12 inutile,
+# le poll détecte le changement de fichier). Tune les LOOKS live sans rebuild.
+#
+# Valeurs = DELTAS depuis le neutre :
+#   exposure        EV offset (0 = neutre, + plus clair)        [-3..3]
+#   temperature     + = chaud/rouge, - = froid/bleu             [-1..1]
+#   tint            + = magenta, - = vert                       [-1..1]
+#   post_saturation + = couleurs plus vives (après tonemapping) [-1..3] (1.0 ajouté)
+#   contrast        + = midtones plus contrastés                [-1..3] (1.0 ajouté)
+#   saturation      + = midtones plus saturés                   [-1..3] (1.0 ajouté)
+#
+# La courbe (Tonemapping) reste le réglage user global (ESC → Profil colorimétrique).
+# Modes sans section ici (Menu/Fps) → grading neutre (reset, pas de fuite).
+
+[roguelite]
+# Cryptes de l'Enclume : forge volcanique cartoon + touche ROSE PASTEL (story-625
+# identité crypts). Bible `crypts_of_anvil.md` : "rouge braise + noir suie + touches
+# roses pastel ; le rose c'est le secret — il rend le lieu accueillant". Cult of the
+# Lamb : sinistre digestible. tint+ = magenta/rose (LE secret), expo+ léger (anti
+# "trop sombre"), contrast adouci (pastel), temp gardée chaude (braise).
+exposure = 0.05
+temperature = 0.16
+tint = 0.10
+post_saturation = 0.10
+contrast = 0.05
+saturation = 0.05
+
+[cybercity]
+# Cyberpunk néon : froid/bleu, highlights pop, contrasté.
+exposure = 0.0
+temperature = -0.15
+tint = 0.05
+post_saturation = 0.15
+contrast = 0.12
+saturation = 0.08
+
+[rpg]
+# Open world nature : naturel, équilibré, doux.
+exposure = 0.0
+temperature = 0.05
+tint = 0.0
+post_saturation = 0.0
+contrast = 0.0
+saturation = 0.0
+
+[castle_hub]
+# Hall de Forgia — valeurs RELEVÉES dans le profil de post-traitement du créateur
+# du pack (`Global Volume Profile World Castle.asset`), pas devinées :
+#   ColorAdjustments : postExposure +1.8 EV · contrast +10 · saturation +7.4
+#   WhiteBalance     : temperature +14.9
+#   ShadowsMidtonesHighlights : ombres poussées vers le BLEU (0.767, 0.808, 1.0)
+#   Vignette bleu nuit 0.306 · Bloom seuil 0.5 intensité 2 teinte chaude
+#
+# Conversion d'échelle URP → Bevy : les curseurs Unity sont en pourcentage
+# (-100..100), les nôtres en multiplicateur autour de 1 → on divise par 100.
+#
+# `exposure` : il est à +1.8 EV, on n'en reprend qu'une part (0.6). Son +1.8
+# compensait une scène lightmappée que nous n'avons pas. À caler à l'œil.
+#
+# NON REPRIS faute d'équivalent dans notre ModeGrade : ses ombres bleues
+# (Bevy a bien un `ColorGrading.shadows`, mais notre structure n'expose que le
+# global) et sa vignette. C'est le prochain écart à combler.
+exposure = 0.60
+temperature = 0.149
+tint = 0.0
+post_saturation = 0.074
+contrast = 0.10
+saturation = 0.074
